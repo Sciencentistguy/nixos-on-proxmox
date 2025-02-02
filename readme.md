@@ -35,7 +35,8 @@ nix-shell -p git
     && git init \
     && git remote add origin https://github.com/Sciencentistguy/nixos-on-proxmox.git \
     && git fetch origin \
-    && git checkout -b master --track origin/master)
+    && git checkout -b master --track origin/master
+    && nix flake update)
 nixos-rebuild --flake /etc/nixos switch
 ```
 
