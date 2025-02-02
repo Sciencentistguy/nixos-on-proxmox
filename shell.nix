@@ -101,11 +101,14 @@
   # needed for atuin on zfs
   systemd.services.atuin-daemon = {
     enable = true;
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       ExecStart = "${pkgs.atuin}/bin/atuin daemon";
       User = "root";
       Group = "root";
       ProtectHome = "off";
+      Restart = "always";
+      RestartSec = "5s";
     };
   };
 
