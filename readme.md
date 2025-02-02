@@ -29,14 +29,13 @@ pct enter $id # note: cannot login using the UI yet
 ```bash
 source /etc/set-environment
 passwd root
-nix channel --update
-nix-shell -p git
-(cd /etc/nixos \
-    && git init \
-    && git remote add origin https://github.com/Sciencentistguy/nixos-on-proxmox.git \
-    && git fetch origin \
-    && git checkout -b master --track origin/master
-    && nix flake update)
+nix --extra-experimental-features 'flakes nix-command' shell github:nixos/nixpkgs/nixos-24.11#git --command bash -c "\
+    (cd /etc/nixos \
+        && git init \
+        && git remote add origin https://github.com/Sciencentistguy/nixos-on-proxmox.git \
+        && git fetch origin \
+        && git checkout -b master --track origin/master \
+        && nix --extra-experimental-features 'flakes nix-command' flake update)"
 nixos-rebuild --flake /etc/nixos switch
 ```
 
