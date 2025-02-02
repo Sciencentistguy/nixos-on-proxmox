@@ -94,6 +94,7 @@
     };
     programs.starship = {
       enable = true;
+      settings.container.disabled = true;
       # enableZshIntegration = true; # Implemented above manually to restore up-arrow
     };
   };
