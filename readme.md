@@ -1,7 +1,6 @@
 # NixOS on Proxmox
 
 ## Create the container
-
 ```bash
 # $id is the container id in proxmox
 # $template-path is the path to the nixos template, can be tab-completed
@@ -11,17 +10,25 @@ pct create $id $template-path \
     --hostname nixos \
     --ostype=nixos --unprivileged=0 --features nesting=1 \
     --net0 name=eth0,bridge=vmbr0,ip=dhcp \
-    --arch=amd64 --swap=1024 --memory=2048 \
+    --arch=amd64 --swap=0 --memory=2048 \
     --storage=$storage
+
+# needed for tailscale
+cat >>/etc/pve/lxc/$id.conf <<EOF 
+lxc.cgroup2.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+EOF
 
 pct resize $id rootfs +8G # your number may vary
 pct start $id
 pct enter $id # note: cannot login using the UI yet
 
-## now in the container:
+```
 
+## In the container
+```bash
 source /etc/set-environment
-passwd --delete root
+passwd root
 nix channel --update
 nix-shell -p git
 (cd /etc/nixos \
