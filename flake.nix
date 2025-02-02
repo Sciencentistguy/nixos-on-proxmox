@@ -12,9 +12,10 @@
     home-manager,
     ...
   }: {
-    nixosConfigurations.recv = nixpkgs.lib.nixosSystem rec {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       modules = [
+        ./base.nix
         ./config.nix
         ./shell.nix
         home-manager.nixosModules.home-manager
