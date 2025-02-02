@@ -9,7 +9,7 @@
     home.stateVersion = "24.11";
     programs.atuin = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false; # Implemented manually to restore up-arrow
       settings.daemon.enabled = true;
     };
     programs.zsh = {
@@ -95,7 +95,7 @@
     programs.starship = {
       enable = true;
       settings.container.disabled = true;
-      # enableZshIntegration = true; # Implemented above manually to restore up-arrow
+      enableZshIntegration = true;
     };
   };
 
