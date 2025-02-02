@@ -10,7 +10,13 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings = {sandbox = false;};
+  nix.settings = {
+    sandbox = false;
+  };
+  nix.extraOptions = ''
+    auto-optimise-store = true
+    experimental-features = flakes nix-command
+  '';
 
   proxmoxLXC = {
     manageNetwork = false;
@@ -19,7 +25,7 @@
 
   security.pam.services.sshd.allowNullPassword = true;
 
-  environment.systemPackages = [pkgs.vim];
+  environment.systemPackages = with pkgs; [vim alejandra git];
 
   services.openssh = {
     enable = true;
@@ -30,5 +36,5 @@
       PermitEmptyPasswords = "yes";
     };
   };
-
+  services.tailscale.enable = true;
 }
