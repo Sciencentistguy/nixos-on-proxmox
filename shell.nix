@@ -89,6 +89,7 @@
             "bindkey '^[[B' down-line-or-search"
             "bindkey '^[OH' beginning-of-line"
             "bindkey '^[OF' end-of-line"
+        )
       '';
     };
     programs.starship = {
