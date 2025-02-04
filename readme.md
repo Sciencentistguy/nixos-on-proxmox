@@ -36,6 +36,7 @@ nix --extra-experimental-features 'flakes nix-command' shell github:nixos/nixpkg
         && git fetch origin \
         && git checkout -b master --track origin/master \
         && nix --extra-experimental-features 'flakes nix-command' flake update)"
+nix --extra-experimental-features 'flakes nix-command' run github:nixos/nixpkgs/nixos-24.11#neovim /etc/nixos/flake.nix
 nixos-rebuild --flake /etc/nixos switch
 ```
 

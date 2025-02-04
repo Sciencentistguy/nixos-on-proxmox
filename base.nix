@@ -1,6 +1,7 @@
 {
   pkgs,
   modulesPath,
+  inputs,
   ...
 }: {
   imports = [(modulesPath + "/virtualisation/proxmox-lxc.nix")];
@@ -13,6 +14,11 @@
     auto-optimise-store = true
     experimental-features = flakes nix-command
   '';
+  nix.nixPath = ["/etc/nix/path"];
+  # the version of nixpkgs used to build the system
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  environment.etc."nix/path/nixpkgs".source = inputs.nixpkgs;
+
   proxmoxLXC = {
     manageNetwork = false;
     privileged = true;
