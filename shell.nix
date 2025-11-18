@@ -32,7 +32,7 @@
           file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
         }
       ];
-      initExtra = ''
+      initConfig = ''
         autoload -U add-zsh-hook
 
         export ATUIN_SESSION=$(atuin uuid)
